@@ -28,10 +28,17 @@ def main():
 def similarity_score(list1: list, list2: list):
 
     total = 0
+    list2_counts = {}
+
+    for number in list2:
+        if number not in list2_counts:
+            list2_counts[number] = 1
+        else:
+            list2_counts[number] += 1
 
     for i in range(0, len(list1)):
         if list1[i] in list2:
-            total += (list2.count(list1[i]) * list1[i])
+            total += (list2_counts[list1[i]] * list1[i])
 
     return total
     
@@ -47,14 +54,12 @@ def format_lists(file_path: str):
     list1 = []
     list2 = []
 
-
-    text = open(file_path, "r")
-
-    for line in text:
-        parts = line.split("   ")
-        list1.append(int(parts[0]))
-        list2.append(int(parts[1]))
-        
+    with open(file_path, "r") as file:
+        for line in file:
+            parts = line.strip().split()
+            list1.append(int(parts[0]))
+            list2.append(int(parts[1]))
+            
     return list1, list2
 
 if __name__ == "__main__":
