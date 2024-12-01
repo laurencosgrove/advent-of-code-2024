@@ -6,13 +6,9 @@
 # For example, if you pair up a 3 from the left list with a 7 from the right list, 
 # the distance apart is 4; if you pair up a 9 with a 3, the distance apart is 6.
 
-import os
-
 def main():
     input_path = "input.txt"
     list1, list2 = format_lists(input_path)
-
-    # sort lists
 
     list1.sort()
     list2.sort()
@@ -28,7 +24,6 @@ def get_distances(list1: list, list2: list):
         distances.append(abs(list1[i] - list2[i]))
     
     return distances
-
 
 def format_lists(file_path: str):
     list1 = []
