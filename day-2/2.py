@@ -12,8 +12,6 @@ def main():
     print(one_level_away(reports))
 
 
-    print(safe)
-
 def format_reports(file_path: str):
     reports = {}
     counter = 0
