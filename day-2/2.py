@@ -15,8 +15,6 @@ def main():
 
     reports = format_reports(input_path)
 
-    safe = 0
-
     print(one_level_away(reports))
 
 
@@ -51,14 +49,13 @@ def is_safe(report: list):
 
 def one_level_away(reports: dict):
     safe = 0
-
     for report in reports.values():
-        if is_safe(report) or check_unsafe_report(report):
+        if is_safe(report) or is_safe_bar_one(report):
             safe += 1
 
     return safe
                 
-def check_unsafe_report(report: list):
+def is_safe_bar_one(report: list):
     for i in range(len(report)): 
         removed_item = report[i]  # save the element to remove
         del report[i]  
