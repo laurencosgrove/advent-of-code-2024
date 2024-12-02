@@ -1,5 +1,13 @@
+# Part 1
 # The input consists of many reports, one report per line. 
 # Each report is a list of numbers called levels that are separated by spaces.
+# Criteria for a safe report:
+    # The levels are either all increasing or all decreasing.
+    # Any two adjacent levels differ by at least one and at most three.
+
+# Part 2
+# Now, the same rules apply as before, except if removing a single level 
+# from an unsafe report would make it safe, the report instead counts as safe.
 
 
 def main():
@@ -30,50 +38,22 @@ def is_safe(report: list):
 
     report = [ int(x) for x in report]
 
-    # First check first and second elements to set whether its increasing or decreasing
-    if report[0] < report[1]:
-         increasing = True
-         jump = abs(report[1] - report[0])
-         if jump > 3:
-            return False
-    elif report[0] == report[1]:
-        return False # immediately return false here because this means list isn't increasing or decreasing
-    else:
-        increasing = False
-        jump = abs(report[1] - report[0])
-        if jump > 3:
+    # First check first and second elements to set whether it's increasing or decreasing
+    increasing = report[0] < report[1]
+
+    # for the rest of the elements
+    for i in range(len(report) - 1):
+        jump = report[i + 1] - report[i]
+        if jump == 0 or abs(jump) > 3 or (increasing and jump < 0) or (not increasing and jump > 0):
             return False
 
-    if increasing:
-        for i in range(1, len(report)-1): # start from by comparing 1 -> 2, we already checked 0 -> 1
-            jump = abs(report[i] - report[i+1])
-            if report[i] > report[i+1] or report[i] == report[i+1]:
-                return False
-            elif jump > 3:
-                return False
-    else: # decreasing
-        for i in range(1, len(report)-1): # start from by comparing 1 -> 2, we already checked 0 -> 1
-            jump = abs(report[i] - report[i+1])
-            if report[i] < report[i+1] or report[i] == report[i+1]:
-                return False
-            elif jump > 3:
-                return False
-            
     return True
 
 def one_level_away(reports: dict):
-    # get the unsafe reports:
-    unsafe_reports = []
     safe = 0
 
-    for i in reports.keys():
-        if not is_safe(reports[i]):
-            unsafe_reports.append(i)
-        else:
-            safe +=1
-
-    for i in unsafe_reports:
-        if check_unsafe_report(reports[i]):
+    for report in reports.values():
+        if is_safe(report) or check_unsafe_report(report):
             safe += 1
 
     return safe
