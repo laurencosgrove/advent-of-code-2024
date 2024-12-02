@@ -24,7 +24,6 @@ def format_reports(file_path: str):
             parts = line.strip().split()
             reports[counter] = parts
             counter += 1
-    
     return reports
 
 def is_safe(report: list):
