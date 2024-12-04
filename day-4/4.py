@@ -1,6 +1,5 @@
 def check_rows(lines: list):
     count = 0
-
     width = len(lines[0])
 
     for line in lines:
@@ -12,6 +11,7 @@ def check_rows(lines: list):
     return count
 
 def check_cols(lines: list):
+
     count = 0
     height = len(lines)
     width = len(lines[0])
@@ -32,14 +32,14 @@ def check_diagonals(lines: list):
 
     for i in range(height):
         for j in range(width):
-            # Top left to bottom right
+            # top left to bottom right
             if i + 3 < height and j + 3 < width:
                 if lines[i][j] == "X" and lines[i+1][j+1] == "M" and lines[i+2][j+2] == "A" and lines[i+3][j+3] == "S":
                     count += 1
                 elif lines[i][j] == "S" and lines[i+1][j+1] == "A" and lines[i+2][j+2] == "M" and lines[i+3][j+3] == "X":
                     count += 1
 
-            # Top right to bottom left
+            # top right to bottom left
             if i + 3 < height and j - 3 >= 0:
                 if lines[i][j] == "X" and lines[i+1][j-1] == "M" and lines[i+2][j-2] == "A" and lines[i+3][j-3] == "S":
                     count += 1
@@ -47,10 +47,35 @@ def check_diagonals(lines: list):
                     count += 1
     return count
 
+def find_crosses(lines: list):
+    height = len(lines)
+    width = len(lines[0])
+    count = 0
+
+    for i in range(height):
+        for j in range(width):
+            # top left to bottom right
+            if i + 2 < height and j + 2 < width:
+                if lines[i][j] == "M" and lines[i+1][j+1] == "A" and lines[i+2][j+2] == "S":
+                    # look the opposite way at j + 2
+                    if lines[i][j+2] == "M" and lines[i+1][j+1] == "A" and lines[i+2][j] == "S":
+                        count += 1
+                    elif lines[i][j+2] == "S" and lines[i+1][j+1] == "A" and lines[i+2][j] == "M":
+                        count += 1
+                # backwards but the same check
+                elif lines[i][j] == "S" and lines[i+1][j+1] == "A" and lines[i+2][j+2] == "M":
+                     # look the opposite way at j + 2
+                    if lines[i][j+2] == "M" and lines[i+1][j+1] == "A" and lines[i+2][j] == "S":
+                        count += 1
+                    elif lines[i][j+2] == "S" and lines[i+1][j+1] == "A" and lines[i+2][j] == "M":
+                        count += 1
+
+    return count
+
 
 def main():
 
-    with open("day-4/input.txt", "r") as file:
+    with open("input.txt", "r") as file:
         text = file.read()
     
     lines = text.strip().split("\n")
@@ -61,8 +86,9 @@ def main():
 
     total = check_cols(lines) + check_rows(lines) + check_diagonals(lines)
 
-    print(f"Total: {total}")
+    print(f"Total XMAS: {total}")
 
+    print(f"MAS Crosses: {find_crosses(lines)}")
 
 if __name__ == "__main__":
     main()
