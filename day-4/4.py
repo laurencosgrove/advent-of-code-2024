@@ -1,3 +1,18 @@
+# Part 1
+# Find all occurrences of "XMAS" in the word search grid. 
+# It can be horizontal, vertical, diagonal, written backwards, or even overlapping other words.
+
+# Part 2
+# This isn't actually an XMAS puzzle; 
+# it's an X-MAS puzzle in which you're supposed to find two MAS in the shape of an X. 
+# One way to achieve that is like this:
+
+# M.S
+# .A.
+# M.S
+
+# Within the X, each MAS can be written forwards or backwards.
+
 def check_rows(lines: list):
     count = 0
     width = len(lines[0])
