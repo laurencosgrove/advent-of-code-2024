@@ -8,6 +8,10 @@
 # Find the middle page number of each correctly-ordered update.
 # What do you get if you add up the middle page number from those correctly-ordered updates?
 
+# Part 2
+# For each of the incorrectly-ordered updates, 
+# use the page ordering rules to put the page numbers in the right order.
+# What do you get if you add up the middle page numbers after correctly ordering just those updates?
 
 def parse_input(text: str):
     parts = text.strip().split("\n\n")
