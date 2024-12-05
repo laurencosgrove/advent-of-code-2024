@@ -38,6 +38,14 @@ def update_correct(update: list, rules: list):
                 return False  # rule[0] should come before rule[1]
     return True
             
+def fix_incorrect_update(update: list, rules: list):
+    for rule in rules:
+        if rule[0] in update and rule[1] in update:
+            if update.index(rule[0]) > update.index(rule[1]):
+                # found one to fix
+                update[update.index(rule[0])], update[update.index(rule[1])] = update[update.index(rule[1])], update[update.index(rule[0])]
+
+    return update
 def main():
      # don't need to know full order
      # just need to check whether the updates follow the rules
@@ -50,17 +58,29 @@ def main():
 
         # check what updates are correct
         correct_updates = []
+        incorrect_updates = []
         for update in updates:
             if update_correct(update, rules):
                 correct_updates.append(update)
-        
+            else:
+                incorrect_updates.append(update)
+
         # get the middle value of the update list and add them
-        total = 0
+        correct_total = 0
+        incorrect_total = 0
 
         for update in correct_updates:
             middle_index = (len(update) - 1) // 2
-            total += int(update[middle_index])
+            correct_total += int(update[middle_index])
 
-        print(f"Total: {total} ")
+        for update in incorrect_updates:
+            while not update_correct(update, rules):
+                update = fix_incorrect_update(update, rules)
+            middle_index = (len(update) - 1) // 2
+            incorrect_total += int(update[middle_index])
+
+        print(f"Correct total: {correct_total} ")
+
+        print(f"Incorrect total: {incorrect_total}")
 if __name__ == "__main__":
     main()
