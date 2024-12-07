@@ -1,7 +1,6 @@
 from itertools import product
 import operator
 
-
 def get_possible_answers(text: str):
     lines = text.strip().split("\n")
     possible = []
@@ -15,6 +14,10 @@ def get_possible_answers(text: str):
 
     return possible
 
+def concatenate(a, b):
+    return int(str(a) + str(b))
+
+
 def calculable(answer: int, operands: list):
 
     num_of_operators = len(operands) - 1
@@ -22,6 +25,7 @@ def calculable(answer: int, operands: list):
     operator_map = {
         "+": operator.add,
         "*": operator.mul,
+        "||": concatenate
     }
 
     operators = operator_permutations(num_of_operators)
@@ -38,7 +42,7 @@ def calculable(answer: int, operands: list):
     return False
 
 def operator_permutations(num: int):
-    operators = ["*", "+"]
+    operators = ["*", "+", "||"]
     return list(product(operators, repeat=num))
 
 def main():
