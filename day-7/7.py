@@ -1,6 +1,24 @@
 from itertools import product
 import operator
 
+# Part 1
+# Each line represents a single equation. 
+# The test value appears before the colon on each line; 
+# it is your job to determine whether the remaining numbers can be combined with operators to produce the test value.
+# Operators are always evaluated left-to-right, not according to precedence rules. 
+# Furthermore, numbers in the equations cannot be rearranged. 
+# Only two different types of operators: add (+) and multiply (*).
+# Return the sum of the test values from just the equations that could possibly be true.
+
+# Part 2
+# The concatenation operator (||) combines the digits from its left and right inputs into a single number. 
+# For example, 12 || 345 would become 12345. All operators are still evaluated left-to-right.
+# Add this operator and again return the sum of the test values from the equations that could possibly be true.
+
+
+
+
+
 def get_possible_answers(text: str):
     lines = text.strip().split("\n")
     possible = []
